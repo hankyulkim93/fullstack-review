@@ -7,7 +7,7 @@ import RepoList from './components/RepoList.jsx';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       repos: []
     }
 
@@ -16,6 +16,19 @@ class App extends React.Component {
   search (term) {
     console.log(`${term} was searched`);
     // TODO
+    //post request: first tells server to post request to github API to grab user's repos & then uses that for cb parameter in post request to save the repo data into mongo db
+    $.ajax({
+      type: "POST",
+      url: '/repos',
+      data: JSON.stringify({
+        username: term
+      }),
+      contentType: 'application/json',
+      success: function(data) {console.log('you did it');}
+      // error: function
+    });
+
+
   }
 
   render () {
