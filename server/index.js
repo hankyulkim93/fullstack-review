@@ -2,7 +2,7 @@ const express = require('express');
 let app = express();
 const github = require('../helpers/github.js');
 const indexdb = require('../database/index.js');
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -31,8 +31,15 @@ app.post('/repos', function (req, res) {
 });
 
 app.get('/repos', function (req, res) {
-  // TODO - your code here!
+
   // This route should send back the top 25 repos
+  indexdb.query((err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(data);
+    }
+  });
 });
 
 let port = 1128;

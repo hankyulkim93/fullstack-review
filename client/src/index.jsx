@@ -11,12 +11,26 @@ class App extends React.Component {
       repos: []
     }
 
+    this.search = this.search.bind(this);
+    // this.findrepos = this.findrepos.bind(this);
+  }
+
+  componentDidMount() {
+    $.ajax({
+      type: "GET",
+      url: '/repos',
+      success: repos => {
+        this.setState({ repos: repos });
+        console.log(this.state);
+        console.log('got em')
+      }
+    })
   }
 
   search (term) {
     console.log(`${term} was searched`);
-    // TODO
     //post request: first tells server to post request to github API to grab user's repos & then uses that for cb parameter in post request to save the repo data into mongo db
+
     $.ajax({
       type: "POST",
       url: '/repos',
@@ -24,18 +38,18 @@ class App extends React.Component {
         username: term
       }),
       contentType: 'application/json',
-      success: function(data) {console.log('you did it');}
-      // error: function
+      success: (data) => {
+        console.log('finding fam');
+        this.componentDidMount();
+      }
     });
-
-
   }
 
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
       <RepoList repos={this.state.repos}/>
-      <Search onSearch={this.search.bind(this)}/>
+      <Search onSearch={this.search}/>
     </div>)
   }
 }
