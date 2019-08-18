@@ -32,12 +32,26 @@ app.post('/repos', function (req, res) {
 
 app.get('/repos', function (req, res) {
 
+  let sizeCompare = (a, b) => {
+    const sizeA = a.size;
+    const sizeB = b.size;
+
+    let comp = 0;
+    if (sizeA > sizeB) {
+      comp = -1;
+    } else if (sizeA < sizeB) {
+      comp = 1;
+    }
+    return comp;
+  }
+
   // This route should send back the top 25 repos
   indexdb.query((err, data) => {
     if (err) {
       console.log(err);
     } else {
-      res.send(data);
+      let sortData = data.sort(sizeCompare);
+      res.send(sortData);
     }
   });
 });

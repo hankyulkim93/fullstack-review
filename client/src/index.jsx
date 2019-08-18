@@ -22,7 +22,6 @@ class App extends React.Component {
       success: repos => {
         this.setState({ repos: repos });
         console.log(this.state);
-        console.log('got em')
       }
     })
   }
@@ -39,7 +38,7 @@ class App extends React.Component {
       }),
       contentType: 'application/json',
       success: (data) => {
-        console.log('finding fam');
+        console.log('posting');
         this.componentDidMount();
       }
     });

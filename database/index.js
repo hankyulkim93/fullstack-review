@@ -14,7 +14,7 @@ let repoSchema = mongoose.Schema({
   html_url: String,
   size: Number,
   language: String
-}, {versionKey: false}, {unique: true}); //hide version key property and prevent duplicate values into database
+}, {versionKey: false}); //hide version key property and prevent duplicate values into database
 
 let Repo = mongoose.model('Repo', repoSchema);
 
